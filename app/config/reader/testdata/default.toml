@@ -1,0 +1,21 @@
+title = "Default config file for testing."
+
+[db]
+    dialect               = "mysql"
+    protocol              = "tcp"
+    host                  = "localhost"
+    port                  = 3306
+    username              = "cyber-helpdesk"
+    password              = "cyber-helpdesk"
+    sslMode               = "require"
+    name                  = "cyber-helpdesk"
+    maxOpenConnections    = 5
+    maxIdleConnections    = 5
+    connectionMaxLifetime = 0
+
+[raven]
+    clientName = "RAVEN"
+    host = "https://raven.stage.razorpay.in"
+    [raven.Auth]
+        username = "api"
+        password = "api123"

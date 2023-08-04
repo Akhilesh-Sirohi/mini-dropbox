@@ -1,0 +1,29 @@
+[app]
+    appEnv                = "default"
+    serviceName           = "mini-dropbox"
+    hostname              = "localhost"
+    port                  = "9400"
+    shutdownTimeout       = 2
+    shutdownDelay         = 2
+    gitCommitHash         = "nil"
+
+
+[db]
+    dialect               = "mysql"
+    protocol              = "tcp"
+    url                   = "127.0.0.1"
+    port                  = "3306"
+    username              = "root"
+    password              = "12345678"
+    sslMode               = "require"
+    name                  = "mini-dropbox"
+    maxOpenConnections    = 5
+    maxIdleConnections    = 5
+    connectionMaxLifetime = 0
+
+[redis]
+    host              = "localhost"
+    port              = 6379
+    database          = 0
+    password          = ""
+    maxRetries        = 3
