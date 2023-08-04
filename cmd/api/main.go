@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	ctx, cancel := context.WithCancel(nil)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	environ, err := common.GetEnv()

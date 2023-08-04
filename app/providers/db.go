@@ -10,7 +10,7 @@ import (
 
 var (
 	once sync.Once
-	DB   *DbProvider
+	DB   DbProvider
 )
 
 type DbProvider struct {
@@ -18,18 +18,20 @@ type DbProvider struct {
 }
 
 type DbConfig struct {
-	username string
-	password string
-	host     string
-	port     string
-	protocol string
-	dbName   string
+	Dialect  string
+	Protocol string
+	Host     string
+	Port     int
+	Username string
+	Password string
+	SslMode  string
+	Name     string
 }
 
 func (db *DbProvider) Setup(cfg DbConfig) error {
 	var err error
 	once.Do(func() {
-		db.DB, err = gorm.Open(mysql.Open(getDatabasePath(cfg)))
+		db.DB, err = gorm.Open(mysql.Open(getDatabasePath(cfg)), &gorm.Config{})
 		if err != nil {
 			logrus.WithError(err).Error("DATABASE_CONNECTION_ERROR")
 		}
@@ -38,9 +40,15 @@ func (db *DbProvider) Setup(cfg DbConfig) error {
 	return err
 }
 
-func getDatabasePath(dbconfig DbConfig) string {
-	path := fmt.Sprintf("%s:%s@%s(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		dbconfig.username, dbconfig.password, dbconfig.protocol, dbconfig.host, dbconfig.port, dbconfig.dbName)
+func getDatabasePath(config DbConfig) string {
+	path := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		config.Username,
+		config.Password,
+		config.Host,
+		config.Port,
+		config.Name,
+	)
+
 	return path
 }
 

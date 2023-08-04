@@ -12,6 +12,7 @@
 package reader
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"runtime"
@@ -23,7 +24,7 @@ import (
 // Default options for configuration loading.
 const (
 	DefaultConfigType     = "toml"
-	DefaultConfigDir      = "./config"
+	DefaultConfigDir      = "./config/toml"
 	DefaultConfigFileName = "default"
 	WorkDirEnv            = "WORKDIR"
 )
@@ -62,6 +63,8 @@ func NewDefaultOptions() Options {
 	} else {
 		_, thisFile, _, _ := runtime.Caller(1)
 		configPath = path.Join(path.Dir(thisFile), "../../"+DefaultConfigDir)
+		fmt.Println("XXX:", thisFile)
+		fmt.Println("YYY: ", configPath)
 	}
 	return NewOptions(DefaultConfigType, configPath, DefaultConfigFileName)
 }
